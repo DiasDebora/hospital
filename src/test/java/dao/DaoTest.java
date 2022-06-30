@@ -1,7 +1,6 @@
+package dao;
 
-package util;
-
-import javax.persistence.EntityManager;
+import modelo.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class JpaUtilTest {
+public class DaoTest {
     
-    public JpaUtilTest() {
+    public DaoTest() {
     }
     
     @BeforeAll
@@ -32,9 +31,13 @@ public class JpaUtilTest {
     }
 
 //    @Test
-//    public void testEntityManager() {
-//        EntityManager em = JpaUtil.getEntityManager();
-//        assertNotNull(em);
+//    public void testInserirUsuario() {
+//        Usuario u = new Usuario();
+//        u.setLogin("jose");
+//        u.setNome("José");
+//        u.setSenha("123");
+//        Dao<Usuario> dao = new Dao(Usuario.class);
+//        dao.inserir(u);
 //    }
-    
+//    
 }
