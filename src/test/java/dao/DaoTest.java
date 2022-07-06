@@ -73,6 +73,8 @@ public class DaoTest {
 //        Dao<Tutor> daoTutor = new Dao(Tutor.class);
 //        List<Tutor> lista = daoTutor.listarTodos();
 //        System.out.println("\n\n\n");
+    
+//        // para cada tutor, lista todos os animais 
 //        for(Tutor t : lista){
 //            System.out.println(t.getNome());
 //            for (Animal a : t.getAnimais()){
