@@ -12,7 +12,7 @@
             Novo Usuário
         </h:panelGrid>
 
-        <h:form >
+        <h:form id="formNovo">
             <h:panelGrid columns="2">
                 <h:outputLabel value="Login: " />
                 <p:inputText value="#{novoUsuarioControle.usuario.login}" />
@@ -30,10 +30,7 @@
                                  update="@form" />
             </h:panelGrid>
             <p:messages showIcon="false" closable="true" />
- 
         </h:form>
-
-
 
     </h:body>
 </html>

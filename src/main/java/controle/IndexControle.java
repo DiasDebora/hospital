@@ -23,6 +23,7 @@ public class IndexControle implements Serializable {
     }
     
     public String autenticar(){
+        System.out.println("\n\n autenticou " + usuario.getLogin() + usuario.getSenha());
         Usuario temp = dao.autenticar(usuario); 
         if ( temp == null ){
             FacesContext context = FacesContext.getCurrentInstance();

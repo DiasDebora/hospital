@@ -14,6 +14,7 @@ import modelo.Usuario;
 public class NovoUsuarioControle implements Serializable {
     private Usuario usuario; 
     private Dao<Usuario> dao; 
+     
     
     @PostConstruct
     public void iniciar(){
@@ -38,6 +39,7 @@ public class NovoUsuarioControle implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
     
     
     
