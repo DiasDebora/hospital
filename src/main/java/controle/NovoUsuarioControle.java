@@ -1,6 +1,7 @@
 package controle;
 
 import dao.Dao;
+import dao.DaoUsuario;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -23,6 +24,11 @@ public class NovoUsuarioControle implements Serializable {
     }
 
     public String inserir(){
+        if ( new DaoUsuario().jaExiste(usuario.getLogin())){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login já existe", null));
+            return null;
+        }
         dao.inserir(usuario);
         usuario = new Usuario();
         FacesContext context = FacesContext.getCurrentInstance();
@@ -30,6 +36,14 @@ public class NovoUsuarioControle implements Serializable {
             (FacesMessage.SEVERITY_INFO, "Usuário cadastrado", null)
             );
         return null;
+    }
+    
+    public void verificar(){
+        if ( new DaoUsuario().jaExiste(usuario.getLogin())){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage
+        (FacesMessage.SEVERITY_ERROR, "Login já existe", null));
+        }
     }
     
     public Usuario getUsuario() {

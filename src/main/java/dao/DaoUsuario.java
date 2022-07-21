@@ -27,4 +27,22 @@ public class DaoUsuario implements Serializable{
         return temp;
     }
     
+    public boolean jaExiste(String login) {
+        Usuario temp = null;
+        boolean existe = false; 
+        manager = JpaUtil.getEntityManager();
+        String sql = "SELECT u FROM Usuario u WHERE u.login = :login";
+        TypedQuery<Usuario> query = manager.createQuery(sql, Usuario.class);
+        query.setParameter("login", login);
+        try {
+            temp = query.getSingleResult();
+            existe = true; 
+        } catch (Exception e) {  
+            temp = null; 
+        } finally {
+            manager.close();
+        }
+        return existe;
+    }
+    
 }

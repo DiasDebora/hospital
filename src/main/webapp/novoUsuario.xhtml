@@ -15,11 +15,17 @@
         <h:form id="formNovo">
             <h:panelGrid columns="2">
                 <h:outputLabel value="Login: " />
-                <p:inputText value="#{novoUsuarioControle.usuario.login}" />
+                <p:inputText value="#{novoUsuarioControle.usuario.login}" 
+                             required="true" requiredMessage="Login obrigatório">
+                    <p:ajax listener="#{novoUsuarioControle.verificar()}" 
+                            update="mensagens"/> 
+                </p:inputText>
                 <h:outputLabel value="Nome: " />
-                <p:inputText value="#{novoUsuarioControle.usuario.nome}"  />
+                <p:inputText value="#{novoUsuarioControle.usuario.nome}" 
+                             required="true" requiredMessage="Nome obrigatório"/>
                 <h:outputLabel value="Senha: " />
-                <p:password value="#{novoUsuarioControle.usuario.senha}"/>
+                <p:password value="#{novoUsuarioControle.usuario.senha}"
+                            required="true" requiredMessage="Senha obrigatória"/>
             </h:panelGrid>
             <h:panelGrid columns="2">
                 <p:commandButton value="Cancelar" immediate="true"
@@ -29,7 +35,7 @@
                                  action="#{novoUsuarioControle.inserir()}"
                                  update="@form" />
             </h:panelGrid>
-            <p:messages showIcon="false" closable="true" />
+            <p:messages id="mensagens" showIcon="false" closable="true" />
         </h:form>
 
     </h:body>
