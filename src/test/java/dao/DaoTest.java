@@ -1,7 +1,9 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import modelo.Animal;
+import modelo.Consulta;
 import modelo.Tutor;
 import modelo.Usuario;
 import org.junit.jupiter.api.AfterEach;
@@ -81,5 +83,18 @@ public class DaoTest {
 //                System.out.println("     " + a.getNome());
 //            }
 //        }
+//    }
+    
+    
+//    @Test
+//    public void testInserirConsulta(){
+//        Dao<Animal> daoAnimal  = new Dao(Animal.class);
+//        Animal a = daoAnimal.buscarPorId(1);
+//        Consulta c = new Consulta();
+//        Dao<Consulta> daoConsulta = new Dao(Consulta.class); 
+//        c.setAnimal(a);
+//        c.setData(LocalDate.now());
+//        c.setDetalhes("teste");
+//        daoConsulta.inserir(c);
 //    }
 }

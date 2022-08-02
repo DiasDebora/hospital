@@ -28,8 +28,7 @@ public class Animal implements Serializable {
     private Integer idade; 
     
     @ManyToOne
-    @JoinColumn( name = "tutor", 
-            referencedColumnName = "id")
+    @JoinColumn( name = "tutor", referencedColumnName = "id")
     private Tutor tutor; 
  
     public Animal() {
