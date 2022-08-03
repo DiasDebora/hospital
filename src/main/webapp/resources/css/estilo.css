@@ -1,0 +1,14 @@
+body {
+    padding: 1%; 
+    background-color: #D3D3D3 !important;
+    font-size: 12px;
+}
+
+.botao{
+    color: #FFFF00  !important;
+}
+
+.botaoLink{
+    color: #00E !important;
+    border-bottom: 1px solid !important;
+}

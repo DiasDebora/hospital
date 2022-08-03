@@ -64,6 +64,14 @@
                         </f:facet>
                         <h:outputText value="#{item.nome}"/>
                     </p:column>
+                    <p:column >
+                        <f:facet name="header">
+                            <h:outputText value="Alterar"/>
+                        </f:facet>
+                        <p:commandLink type="button" value="alterar"
+                                       action="#{gerenciarTutorControle.preparaAlterar(item)}" 
+                                       update="@form"/>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="Excluir"/>
@@ -83,6 +91,34 @@
                         <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no"  />
                     </p:outputPanel>
                 </p:confirmDialog>
+
+
+                <p:dialog  id="popupAltera" modal="true" header="Alteração"
+                           visible="#{gerenciarTutorControle.mostraPopup}" >
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nome: " />
+                    <p:inputText value="#{gerenciarTutorControle.tutor.nome}"
+                                 required="true" requiredMessage="Nome obrigatório"/>
+                    <h:outputLabel value="CPF: " />
+                    <p:inputText value="#{gerenciarTutorControle.tutor.cpf}"  />
+                    <h:outputLabel value="Endereço: " />
+                    <p:inputText value="#{gerenciarTutorControle.tutor.endereco}"/>
+                    <h:outputLabel value="Telefone: " />
+                    <p:inputText value="#{gerenciarTutorControle.tutor.telefone}"/>
+                    </h:panelGrid>
+                    <p/>
+                    <p:outputPanel style="width: 100%; text-align:center" >
+                        <p:commandButton value="Cancelar" style="width: 150px;" ajax="false"
+                                         immediate="true"
+                                         action="#{gerenciarTutorControle.cancelarAlteracao()}" /> 
+                        <p:commandButton value="Salvar" style="width: 150px;" ajax="false"
+                                         action="#{gerenciarTutorControle.salvarAlteracao()}" /> 
+                    </p:outputPanel>
+                    <p:outputPanel style="width: 100%; text-align:center" >
+                        <p:messages showIcon="false" closable="true" />
+                    </p:outputPanel> 
+                </p:dialog>
+
             </h:form>
         </div>
 

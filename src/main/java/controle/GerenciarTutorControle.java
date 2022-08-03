@@ -17,12 +17,14 @@ public class GerenciarTutorControle implements Serializable {
     private Tutor tutor;
     private Dao<Tutor> dao;
     private List<Tutor> listaTutores;
+    private boolean mostraPopup; 
 
     @PostConstruct
     public void iniciar() {
         setTutor(new Tutor());
         dao = new Dao(Tutor.class);
         setListaTutores(dao.listarTodos());
+        mostraPopup = false; 
     }
 
     public void inserir() {
@@ -33,6 +35,21 @@ public class GerenciarTutorControle implements Serializable {
             (FacesMessage.SEVERITY_INFO, "Tutor cadastrado", null)
             );
         listaTutores = dao.listarTodos();
+    }
+    
+    public void preparaAlterar(Tutor aux){
+        System.out.println(aux.getNome());
+        tutor = aux;
+        mostraPopup = true; 
+        
+    }
+    
+    public void cancelarAlteracao(){
+        mostraPopup = false; 
+    }
+    
+    public void salvarAlteracao(){
+        
     }
 
     public void excluirTutor(Tutor excluido) {
@@ -54,6 +71,14 @@ public class GerenciarTutorControle implements Serializable {
 
     public void setListaTutores(List<Tutor> listaTutores) {
         this.listaTutores = listaTutores;
+    }
+
+    public boolean isMostraPopup() {
+        return mostraPopup;
+    }
+
+    public void setMostraPopup(boolean mostraPopup) {
+        this.mostraPopup = mostraPopup;
     }
 
 }

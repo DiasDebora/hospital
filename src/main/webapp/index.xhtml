@@ -6,22 +6,28 @@
     
     <h:head>
         <title>Hospital Veterinário</title>
+        <h:outputStylesheet  name="css/estilo.css"/>
     </h:head>
     <h:body > 
         <h:form>
             <h:panelGrid columns="2">
             
             <h:outputLabel value="Login: " />
-            <p:inputText value="#{indexControle.usuario.login}"/>
+            <p:inputText id="login" value="#{indexControle.usuario.login}" 
+                         onblur="converter()"
+                         />
             <h:outputLabel value="Senha: " />
             <p:password value="#{indexControle.usuario.senha}"/>
-            <p:commandButton value="Entrar" 
+            <p:commandButton value="Entrar" styleClass="botao" 
                              action="#{indexControle.autenticar()}"
                              update="@form" />
             </h:panelGrid>
             <p:messages showIcon="false" closable="true" />
-        </h:form>     
+        </h:form>  
+        
+        
     </h:body>
+    
 </html>
     
     

@@ -93,7 +93,7 @@ public class DaoTest {
 //        Consulta c = new Consulta();
 //        Dao<Consulta> daoConsulta = new Dao(Consulta.class); 
 //        c.setAnimal(a);
-//        c.setData(LocalDate.now());
+//        c.setDataConsulta(new java.util.Date());
 //        c.setDetalhes("teste");
 //        daoConsulta.inserir(c);
 //    }

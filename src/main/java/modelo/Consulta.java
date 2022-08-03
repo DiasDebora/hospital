@@ -2,7 +2,7 @@
 package modelo;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ public class Consulta implements Serializable {
     
     @Column
     @Temporal(TemporalType.DATE)
-    private LocalDate data;
+    private Date dataConsulta;
     
     @Column(columnDefinition = "TEXT")
     private String detalhes; 
@@ -42,12 +42,12 @@ public class Consulta implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getData() {
-        return data;
+    public Date getDataConsulta() {
+        return dataConsulta;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setDataConsulta(Date dataConsulta) {
+        this.dataConsulta = dataConsulta;
     }
 
     public String getDetalhes() {
