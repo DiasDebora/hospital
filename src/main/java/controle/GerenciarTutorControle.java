@@ -15,6 +15,7 @@ import modelo.Tutor;
 public class GerenciarTutorControle implements Serializable {
 
     private Tutor tutor;
+    private Tutor tutorAlterar;
     private Dao<Tutor> dao;
     private List<Tutor> listaTutores;
     private boolean mostraPopup; 
@@ -39,7 +40,7 @@ public class GerenciarTutorControle implements Serializable {
     
     public void preparaAlterar(Tutor aux){
         System.out.println(aux.getNome());
-        tutor = aux;
+        tutorAlterar = aux;
         mostraPopup = true; 
         
     }
@@ -49,7 +50,13 @@ public class GerenciarTutorControle implements Serializable {
     }
     
     public void salvarAlteracao(){
-        
+        dao.alterar(tutorAlterar);
+        FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage
+            (FacesMessage.SEVERITY_INFO, "Tutor alterado", null)
+            );
+        tutorAlterar = new Tutor();
+        listaTutores = dao.listarTodos();
     }
 
     public void excluirTutor(Tutor excluido) {
@@ -81,4 +88,13 @@ public class GerenciarTutorControle implements Serializable {
         this.mostraPopup = mostraPopup;
     }
 
+    public Tutor getTutorAlterar() {
+        return tutorAlterar;
+    }
+
+    public void setTutorAlterar(Tutor tutorAlterar) {
+        this.tutorAlterar = tutorAlterar;
+    }
+
+    
 }

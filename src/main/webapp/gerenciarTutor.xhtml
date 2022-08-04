@@ -7,13 +7,14 @@
 
     <h:head>
         <title>Hospital Veterinário</title>
+        <h:outputStylesheet  name="css/estilo.css"/>
     </h:head>
     <h:body>
         <h:panelGrid style="width: 100%; text-align: center;">
             Gerenciar Tutores 
         </h:panelGrid>
         <h:form id="formVoltar" >                   
-            <p:commandLink  action="menu" value="Voltar ao menu" />
+            <p:commandLink styleClass="botaoLink"  action="menu" value="Voltar ao menu" />
         </h:form>
 
         <p/>
@@ -70,7 +71,7 @@
                         </f:facet>
                         <p:commandLink type="button" value="alterar"
                                        action="#{gerenciarTutorControle.preparaAlterar(item)}" 
-                                       update="@form"/>
+                                       update=":formAltera"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -78,7 +79,7 @@
                         </f:facet>
                         <p:commandLink type="button" styleClass="botaoLink" value="excluir" 
                                        action="#{gerenciarTutorControle.excluirTutor(item)}"
-                                       update="tabelaTutores">
+                                       update="formTabela">
                             <p:confirm header="Excluir tutor" message="Você tem certeza que deseja excluir este tutor?" 
                                        icon="ui-icon-alert"/>
                         </p:commandLink>
@@ -91,29 +92,38 @@
                         <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no"  />
                     </p:outputPanel>
                 </p:confirmDialog>
+            </h:form>
 
-
-                <p:dialog  id="popupAltera" modal="true" header="Alteração"
-                           visible="#{gerenciarTutorControle.mostraPopup}" >
+            <h:form id="formAltera">
+                <p:dialog widgetVar="popupAltera" width="50%"  modal="true" header="Alteração"
+                          visible="#{gerenciarTutorControle.mostraPopup}" >
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Nome: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.nome}"
-                                 required="true" requiredMessage="Nome obrigatório"/>
-                    <h:outputLabel value="CPF: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.cpf}"  />
-                    <h:outputLabel value="Endereço: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.endereco}"/>
-                    <h:outputLabel value="Telefone: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.telefone}"/>
+                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.nome}"
+                                     required="true" requiredMessage="Nome obrigatório"
+                                     maxlength="30"
+                                     style=" width: 500px" />
+                        <h:outputLabel value="CPF: " />
+                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.cpf}" 
+                                     maxlength="30"
+                                     style=" width: 500px"/>
+                        <h:outputLabel value="Endereço: " />
+                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.endereco}"
+                                     maxlength="50"
+                                     style=" width: 500px"/>
+                        <h:outputLabel value="Telefone: "/>
+                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.telefone}"  
+                                     maxlength="30"
+                                     style=" width: 500px"/>
                     </h:panelGrid>
                     <p/>
-                    <p:outputPanel style="width: 100%; text-align:center" >
+                    <h:panelGrid  columns="2" style="width: 50%; align-items: center" >
                         <p:commandButton value="Cancelar" style="width: 150px;" ajax="false"
                                          immediate="true"
                                          action="#{gerenciarTutorControle.cancelarAlteracao()}" /> 
                         <p:commandButton value="Salvar" style="width: 150px;" ajax="false"
                                          action="#{gerenciarTutorControle.salvarAlteracao()}" /> 
-                    </p:outputPanel>
+                    </h:panelGrid>
                     <p:outputPanel style="width: 100%; text-align:center" >
                         <p:messages showIcon="false" closable="true" />
                     </p:outputPanel> 
