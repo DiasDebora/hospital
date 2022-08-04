@@ -39,10 +39,8 @@ public class GerenciarTutorControle implements Serializable {
     }
     
     public void preparaAlterar(Tutor aux){
-        System.out.println(aux.getNome());
         tutorAlterar = aux;
-        mostraPopup = true; 
-        
+        mostraPopup = true;     
     }
     
     public void cancelarAlteracao(){
