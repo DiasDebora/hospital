@@ -1,29 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
-    <h:head>
-        <title>Hospital Veterinário</title>
-        <h:outputStylesheet  name="css/estilo.css"/>
-    </h:head>
-    <h:body>
-        <h:panelGrid style="width: 100%; text-align: center;">
-            Menu
-        </h:panelGrid>
-        <h:form >
-            <p:commandLink  action="novoUsuario" value="Gerenciar usuários" />
+    <ui:composition template="template.xhtml">
+        <ui:define name="body">
             <p/>
-            <p:commandLink  action="gerenciarTutor" value="Gerenciar tutores" />
-            <p/>
-            <p:commandLink  action="gerenciarAnimal" value="Novo animal" />
-            <p/>
-            <p:commandLink  action="consulta" value="Consultas" />
-            <p/>
-            <p:commandLink  action="index" value="Sair" />
-        </h:form>
-
-
-    </h:body>
+            <h:panelGrid style="width: 100%; text-align: center; font-size: 36px">
+                Menu
+            </h:panelGrid>
+            <h:form >
+                <p:commandLink  action="novoUsuario" value="Gerenciar usuários" styleClass="botaoLink" />
+                <p/>
+                <p:commandLink  action="gerenciarTutor" value="Gerenciar tutores" styleClass="botaoLink" />
+                <p/>
+                <p:commandLink  action="gerenciarAnimal" value="Novo animal" styleClass="botaoLink" />
+                <p/>
+                <p:commandLink  action="consulta" value="Consultas" styleClass="botaoLink" />
+                <p/>
+                <p:commandLink  action="index" value="Sair" styleClass="botaoLink" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </html>

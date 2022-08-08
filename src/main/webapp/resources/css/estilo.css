@@ -1,7 +1,7 @@
 body {
-    padding: 2%; 
+    padding: 1%; 
     margin: 20px;
-    background-color: #F0E68C !important;
+    background-color: #F8F8FF !important;
     font-size: 14px;
 }
 
@@ -13,3 +13,10 @@ body {
     color: #00E !important;
     border-bottom: 1px solid !important;
 }
+
+.cabecalho{
+    background-color: #4682B4 !important;
+    height: 70px;  
+    width: 100%;
+}
+
