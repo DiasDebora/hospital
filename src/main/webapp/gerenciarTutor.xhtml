@@ -1,137 +1,134 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
-    <h:head>
-        <title>Hospital Veterinário</title>
-        <h:outputStylesheet  name="css/estilo.css"/>
-    </h:head>
-    <h:body>
-        <h:panelGrid style="width: 100%; text-align: center;">
-            Gerenciar Tutores 
-        </h:panelGrid>
-        <h:form id="formVoltar" >                   
-            <p:commandLink styleClass="botaoLink"  action="menu" value="Voltar ao menu" />
-        </h:form>
-
-        <p/>
-        <p:fieldset legend="Novo Tutor" toggleable="true"  collapsed="true" >
-            <h:form id="formNovo">
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Nome: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.nome}"
-                                 required="true" requiredMessage="Nome obrigatório"/>
-                    <h:outputLabel value="CPF: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.cpf}"  />
-                    <h:outputLabel value="Endereço: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.endereco}"/>
-                    <h:outputLabel value="Telefone: " />
-                    <p:inputText value="#{gerenciarTutorControle.tutor.telefone}"/>
-                </h:panelGrid>
-                <h:panelGrid columns="2">
-                    <p:commandButton value="Cancelar" immediate="true"
-                                     action="menu"
-                                     />
-                    <p:commandButton value="Gravar" 
-                                     action="#{gerenciarTutorControle.inserir()}"
-                                     update="formNovo, :formTabela" />
-                </h:panelGrid>
-                <p:messages showIcon="false" closable="true" />
-
-            </h:form>        
-        </p:fieldset>       
-        <p/>
-
-        <div id="divtab">
-            <h:form id="formTabela">  
-                <p:dataTable id="tabelaTutores"  
-                             value="#{gerenciarTutorControle.listaTutores}" 
-                             var="item"
-                             lazy="true"
-                             emptyMessage="Nenhum tutor cadastrado"
-                             tableStyle="width:auto;  min-width: 100%" >
-                    <p:column sortBy="#{item.id}">
-                        <f:facet name="header">
-                            <h:outputText value="Id"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
-                    <p:column sortBy="#{item.nome}">
-                        <f:facet name="header">
-                            <h:outputText value="Nome"/>
-                        </f:facet>
-                        <h:outputText value="#{item.nome}"/>
-                    </p:column>
-                    <p:column >
-                        <f:facet name="header">
-                            <h:outputText value="Alterar"/>
-                        </f:facet>
-                        <p:commandLink type="button" value="alterar"
-                                       action="#{gerenciarTutorControle.preparaAlterar(item)}" 
-                                       update=":formAltera"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Excluir"/>
-                        </f:facet>
-                        <p:commandLink type="button" styleClass="botaoLink" value="excluir" 
-                                       action="#{gerenciarTutorControle.excluirTutor(item)}"
-                                       update="formTabela">
-                            <p:confirm header="Excluir tutor" message="Você tem certeza que deseja excluir este tutor?" 
-                                       icon="ui-icon-alert"/>
-                        </p:commandLink>
-                    </p:column>  
-                </p:dataTable>
-
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
-                        <p:commandButton value="sim" type="button" styleClass="ui-confirmdialog-yes"  />
-                        <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no"  />
-                    </p:outputPanel>
-                </p:confirmDialog>
-            </h:form>
-
-            <h:form id="formAltera">
-                <p:dialog widgetVar="popupAltera" width="50%"  modal="true" header="Alteração"
-                          visible="#{gerenciarTutorControle.mostraPopup}" >
+    <ui:composition template="template.xhtml">
+        <ui:define name="body">
+            <p/>
+            <h:panelGrid style="width: 100%; text-align: center; font-size: 24px">
+                Gerenciar Tutores 
+            </h:panelGrid>
+            <h:panelGrid style="width: 100%; text-align: right;">
+                <h:form id="formVoltar" >                   
+                    <p:commandLink styleClass="botaoLink"  action="menu" value="Voltar ao menu" />
+                </h:form>
+            </h:panelGrid>
+            <p/>
+            <p:fieldset legend="Novo Tutor" toggleable="true"  collapsed="true" >
+                <h:form id="formNovo">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Nome: " />
-                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.nome}"
-                                     required="true" requiredMessage="Nome obrigatório"
-                                     maxlength="30"
-                                     style=" width: 500px" />
+                        <p:inputText value="#{gerenciarTutorControle.tutor.nome}"
+                                     required="true" requiredMessage="Nome obrigatório"/>
                         <h:outputLabel value="CPF: " />
-                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.cpf}" 
-                                     maxlength="30"
-                                     style=" width: 500px"/>
+                        <p:inputText value="#{gerenciarTutorControle.tutor.cpf}"  />
                         <h:outputLabel value="Endereço: " />
-                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.endereco}"
-                                     maxlength="50"
-                                     style=" width: 500px"/>
-                        <h:outputLabel value="Telefone: "/>
-                        <p:inputText value="#{gerenciarTutorControle.tutorAlterar.telefone}"  
-                                     maxlength="30"
-                                     style=" width: 500px"/>
+                        <p:inputText value="#{gerenciarTutorControle.tutor.endereco}"/>
+                        <h:outputLabel value="Telefone: " />
+                        <p:inputText value="#{gerenciarTutorControle.tutor.telefone}"/>
                     </h:panelGrid>
-                    <p/>
-                    <h:panelGrid  columns="2" >
-                        <p:commandButton value="Cancelar" style="width: 150px; margin: 20px" ajax="false"
-                                         immediate="true"
-                                         action="#{gerenciarTutorControle.cancelarAlteracao()}" /> 
-                        <p:commandButton value="Salvar" style="width: 150px;" ajax="false"
-                                         action="#{gerenciarTutorControle.salvarAlteracao()}" /> 
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Cancelar" immediate="true"
+                                         action="menu"
+                                         />
+                        <p:commandButton value="Gravar" 
+                                         action="#{gerenciarTutorControle.inserir()}"
+                                         update="formNovo, :formTabela" />
                     </h:panelGrid>
-                    <p:outputPanel style="width: 100%; text-align:center" >
-                        <p:messages showIcon="false" closable="true" />
-                    </p:outputPanel> 
-                </p:dialog>
+                    <p:messages showIcon="false" closable="true" />
 
-            </h:form>
-        </div>
+                </h:form>        
+            </p:fieldset>       
+            <p/>
 
+            <div id="divtab">
+                <h:form id="formTabela">  
+                    <p:dataTable id="tabelaTutores"  
+                                 value="#{gerenciarTutorControle.listaTutores}" 
+                                 var="item"
+                                 lazy="true"
+                                 emptyMessage="Nenhum tutor cadastrado"
+                                 tableStyle="width:auto;  min-width: 100%" >
+                        <p:column sortBy="#{item.id}">
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="Nome"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nome}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Alterar"/>
+                            </f:facet>
+                            <p:commandLink type="button" value="alterar" styleClass="botaoLink"
+                                           action="#{gerenciarTutorControle.preparaAlterar(item)}" 
+                                           update=":formAltera"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            <p:commandLink type="button" styleClass="botaoLink" value="excluir" 
+                                           action="#{gerenciarTutorControle.excluirTutor(item)}"
+                                           update="formTabela">
+                                <p:confirm header="Excluir tutor" message="Você tem certeza que deseja excluir este tutor?" 
+                                           icon="ui-icon-alert"/>
+                            </p:commandLink>
+                        </p:column>  
+                    </p:dataTable>
 
-    </h:body>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+                            <p:commandButton value="sim" type="button" styleClass="ui-confirmdialog-yes"  />
+                            <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no"  />
+                        </p:outputPanel>
+                    </p:confirmDialog>
+                </h:form>
+
+                <h:form id="formAltera">
+                    <p:dialog widgetVar="popupAltera" width="50%"  modal="true" header="Alteração"
+                              visible="#{gerenciarTutorControle.mostraPopup}" >
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Nome: " />
+                            <p:inputText value="#{gerenciarTutorControle.tutorAlterar.nome}"
+                                         required="true" requiredMessage="Nome obrigatório"
+                                         maxlength="30"
+                                         style=" width: 500px" />
+                            <h:outputLabel value="CPF: " />
+                            <p:inputText value="#{gerenciarTutorControle.tutorAlterar.cpf}" 
+                                         maxlength="30"
+                                         style=" width: 500px"/>
+                            <h:outputLabel value="Endereço: " />
+                            <p:inputText value="#{gerenciarTutorControle.tutorAlterar.endereco}"
+                                         maxlength="50"
+                                         style=" width: 500px"/>
+                            <h:outputLabel value="Telefone: "/>
+                            <p:inputText value="#{gerenciarTutorControle.tutorAlterar.telefone}"  
+                                         maxlength="30"
+                                         style=" width: 500px"/>
+                        </h:panelGrid>
+                        <p/>
+                        <h:panelGrid  columns="2" >
+                            <p:commandButton value="Cancelar" style="width: 150px; margin: 20px" ajax="false"
+                                             immediate="true"
+                                             action="#{gerenciarTutorControle.cancelarAlteracao()}" /> 
+                            <p:commandButton value="Salvar" style="width: 150px;" ajax="false"
+                                             action="#{gerenciarTutorControle.salvarAlteracao()}" /> 
+                        </h:panelGrid>
+                        <p:outputPanel style="width: 100%; text-align:center" >
+                            <p:messages showIcon="false" closable="true" />
+                        </p:outputPanel> 
+                    </p:dialog>
+
+                </h:form>
+            </div>
+
+        </ui:define>
+    </ui:composition>
 </html>
