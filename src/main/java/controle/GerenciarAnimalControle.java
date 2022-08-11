@@ -18,6 +18,7 @@ public class GerenciarAnimalControle implements Serializable {
     private Dao<Tutor> daoTutor;
     private Dao<Animal> daoAnimal;
     private List<Tutor> listaTutores;
+    private List<Animal> listaAnimais; 
     private Animal novoAnimal;
     private String nome;
 
@@ -26,6 +27,7 @@ public class GerenciarAnimalControle implements Serializable {
         daoTutor = new Dao(Tutor.class);
         daoAnimal = new Dao(Animal.class);
         setListaTutores(daoTutor.listarTodos());
+        listaAnimais = daoAnimal.listarTodos(); 
         setNovoAnimal(new Animal());
         nome = "";
     }
@@ -35,7 +37,12 @@ public class GerenciarAnimalControle implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Animal cadastrado", null));
         novoAnimal = new Animal();
-        nome = "sucesso";
+        listaAnimais = daoAnimal.listarTodos(); 
+    }
+    
+    public void excluir(Animal a){
+        daoAnimal.excluir(a.getId());
+        listaAnimais = daoAnimal.listarTodos(); 
     }
 
     public List<Tutor> getListaTutores() {
@@ -60,6 +67,14 @@ public class GerenciarAnimalControle implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Animal> getListaAnimais() {
+        return listaAnimais;
+    }
+
+    public void setListaAnimais(List<Animal> listaAnimais) {
+        this.listaAnimais = listaAnimais;
     }
     
 

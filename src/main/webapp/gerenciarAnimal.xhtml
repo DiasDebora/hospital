@@ -17,44 +17,102 @@
                 <p:commandLink  action="menu" value="Voltar ao menu" />
             </h:form>
         </h:panelGrid>
+        <p:fieldset legend="Novo Animal" toggleable="true"  collapsed="true" >
+            <h:form id="formNovo">
+                <h:panelGrid columns="2" >
+                    <h:outputLabel value="Espécie: " />
+                    <p:inputText value="#{gerenciarAnimalControle.novoAnimal.especie}"
+                                 required="true" requiredMessage="Espécie obrigatória" />
+                    <h:outputLabel value="Raça: " />
+                    <p:inputText value="#{gerenciarAnimalControle.novoAnimal.raca}"
+                                 required="true" requiredMessage="Raça obrigatória" />
+                    <h:outputLabel value="Nome: " />
+                    <p:inputText value="#{gerenciarAnimalControle.novoAnimal.nome}"
+                                 required="true" requiredMessage="Nome obrigatório" />
+                    <h:outputLabel value="Idade: " />
+                    <p:inputText value="#{gerenciarAnimalControle.novoAnimal.idade}" />
 
-        <h:form id="formNovo">
-            <h:panelGrid columns="2" >
-                <h:outputLabel value="Espécie: " />
-                <p:inputText value="#{gerenciarAnimalControle.novoAnimal.especie}"
-                             required="true" requiredMessage="Espécie obrigatória" />
-                <h:outputLabel value="Raça: " />
-                <p:inputText value="#{gerenciarAnimalControle.novoAnimal.raca}"
-                             required="true" requiredMessage="Raça obrigatória" />
-                <h:outputLabel value="Nome: " />
-                <p:inputText value="#{gerenciarAnimalControle.novoAnimal.nome}"
-                             required="true" requiredMessage="Nome obrigatório" />
-                <h:outputLabel value="Idade: " />
-                <p:inputText value="#{gerenciarAnimalControle.novoAnimal.idade}" />
+                    <h:outputLabel value="Tutor: " />
 
-                <h:outputLabel value="Tutor: " />
+                    <p:selectOneMenu id="comboTutor" converter="tutorConverter" 
+                                     required="true" requiredMessage="Selecione um tutor"  
+                                     value="#{gerenciarAnimalControle.novoAnimal.tutor}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="Escolha um tutor" 
+                                      noSelectionOption="false"/>
+                        <f:selectItems value="#{gerenciarAnimalControle.listaTutores}" 
+                                       var="tut"
+                                       itemValue="#{tut}"
+                                       itemLabel="#{tut.nome}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
 
-                <p:selectOneMenu id="comboTutor" converter="tutorConverter" 
-                                 required="true" requiredMessage="Selecione um tutor"  
-                                 value="#{gerenciarAnimalControle.novoAnimal.tutor}" >
-                    <f:selectItem itemValue="#{null}" itemLabel="Escolha um tutor" 
-                                  noSelectionOption="false"/>
-                    <f:selectItems value="#{gerenciarAnimalControle.listaTutores}" 
-                                   var="tut"
-                                   itemValue="#{tut}"
-                                   itemLabel="#{tut.nome}"/>
-                </p:selectOneMenu>
-            </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Cancelar" immediate="true"
+                                     action="menu"  />
+                    <p:commandButton value="Gravar" 
+                                     action="#{gerenciarAnimalControle.inserir()}"
+                                     update="formNovo, :formTabela" />
+                </h:panelGrid>
+                <p:messages showIcon="false" closable="true" /> 
+            </h:form>
+        </p:fieldset>
 
-            <h:panelGrid columns="2">
-                <p:commandButton value="Cancelar" immediate="true"
-                                 action="menu"  />
-                <p:commandButton value="Gravar" 
-                                 action="#{gerenciarAnimalControle.inserir()}"
-                                 update="formNovo" />
-            </h:panelGrid>
-            <p:messages showIcon="false" closable="true" /> 
-        </h:form>
+
+
+        <div id="divtab">
+            <h:form id="formTabela">  
+                <p:dataTable id="tabelaAnimais"  
+                             value="#{gerenciarAnimalControle.listaAnimais}" 
+                             var="item"
+                             lazy="true"
+                             emptyMessage="Nenhum tutor cadastrado"
+                             tableStyle="width:auto;  min-width: 100%" >
+                    <p:column sortBy="#{item.id}">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.nome}">
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nome}"/>
+                    </p:column>
+
+                    <!-- p:column >
+                        <f:facet name="header">
+                            <h:outputText value="Alterar"/>
+                        </f:facet>
+                        <p:commandLink type="button" value="alterar" styleClass="botaoLink"
+                                       action="#{gerenciarAnimalControle.preparaAlterar(item)}" 
+                                       update=":formAltera"/>
+                    </p:column-->
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Excluir"/>
+                        </f:facet>
+                        <p:commandLink type="button" styleClass="botaoLink" value="excluir" 
+                                       action="#{gerenciarAnimalControle.excluir(item)}"
+                                       update="formTabela">
+                            <p:confirm header="Excluir tutor" message="Você tem certeza que deseja excluir este tutor?" 
+                                       icon="ui-icon-alert"/>
+                        </p:commandLink>
+                    </p:column>  
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+                        <p:commandButton value="sim" type="button" styleClass="ui-confirmdialog-yes"  />
+                        <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no"  />
+                    </p:outputPanel>
+                </p:confirmDialog>
+            </h:form>
+
+        </div>
+
 
     </h:body>
 </html>

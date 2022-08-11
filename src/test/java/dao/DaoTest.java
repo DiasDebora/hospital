@@ -70,7 +70,7 @@ public class DaoTest {
 //        daoAnimal.inserir(a);        
 //    }
     
-    
+//    @Test
 //    public void testListarTutor(){
 //        Dao<Tutor> daoTutor = new Dao(Tutor.class);
 //        List<Tutor> lista = daoTutor.listarTodos();
@@ -83,6 +83,18 @@ public class DaoTest {
 //                System.out.println("     " + a.getNome());
 //            }
 //        }
+//    }
+    
+    
+//    @Test
+//    public void testListarAnimais(){
+//        Dao<Tutor> dao = new Dao(Tutor.class);
+//        Tutor tutor = dao.buscarPorId(1);
+//        List<Animal> lista = tutor.getAnimais();
+//        for(Animal a : lista){
+//            System.out.println(a.getNome());
+//        }
+//        
 //    }
     
     
