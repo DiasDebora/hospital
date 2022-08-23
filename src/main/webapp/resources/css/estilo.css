@@ -14,6 +14,10 @@ body {
     border-bottom: 1px solid !important;
 }
 
+.link{
+    color: #00E !important;
+}
+
 .cabecalho{
     background-color: #4682B4 !important;
     height: 70px;  

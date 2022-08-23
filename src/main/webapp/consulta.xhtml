@@ -1,21 +1,128 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:head>
-        <title>Hospital Veterinário</title>
-        <h:outputScript name="js/scripts.js" />
-        <h:outputStylesheet  name="css/estilo.css"/>
-    </h:head>
-    <h:body>
-        <h:form>
-            <p:calendar id="dataInicio" pattern="dd/MM/yyyy"
-                                        value="#{pesquisaEditarController.projeto.dataInicio}" 
-                                        required="true" requiredMessage="Data início obrigatória"
-                                        showOn="button"
-                                        locale="pt"/>
-        </h:form>
-    </h:body>
+
+    <ui:composition template="template.xhtml">
+        <ui:define name="body" >
+            <p/>
+            <h:panelGrid style="width: 100%; text-align: center; font-size: 36px">
+                Consultas 
+            </h:panelGrid>
+            <h:panelGrid columns="2" style="width: 100%; text-align: right;">
+                <h:form id="formVoltar" >                   
+                    <p:commandLink  action="menu" value="Voltar ao menu" />
+                </h:form>
+            </h:panelGrid>
+
+            <h:form id="formPrincipal">
+                <h:panelGrid columns="5" >
+                    <h:outputLabel value="Tutor: " />
+                    <p:selectOneMenu id="comboTutor" converter="tutorConverter" 
+                                     required="true" requiredMessage="Selecione um tutor"  
+                                     value="#{consultaControle.tutorSelecionado}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="Escolha um tutor" 
+                                      noSelectionOption="false"/>
+                        <f:selectItems value="#{consultaControle.tutores}" 
+                                       var="tut"
+                                       itemValue="#{tut}"
+                                       itemLabel="#{tut.nome}"/>
+                        <p:ajax listener="#{consultaControle.atualizarAnimais()}" update="comboAnimal" />
+                    </p:selectOneMenu>
+
+                    <h:outputLabel value="Animal:"/>
+                    <p:selectOneMenu id="comboAnimal" converter="animalConverter"
+                                     required="true" requiredMessage="Selecione um animal"  
+                                     value="#{consultaControle.animalSelecionado}" >
+                        <f:selectItem itemValue="#{null}" itemLabel="Escolha um animal" 
+                                      noSelectionOption="false"/>
+                        <f:selectItems value="#{consultaControle.animais}"
+                                       var="ani"
+                                       itemValue="#{ani}"
+                                       itemLabel="#{ani.nome}"/>
+                        <p:ajax event="change" update="mensagens, formTabela"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="nova consulta"
+                                     action="#{consultaControle.abrirPopup()}" update=":formNova" />
+                </h:panelGrid>
+                <p:messages  id="mensagens" closable="true" />
+            </h:form>
+            <p:separator />
+
+            <h:form id="formTabela">
+                <p:dataTable id="tabelaAnimais"  
+                             value="#{consultaControle.animalSelecionado.consultas}" 
+                             var="item"
+                             lazy="true"
+                             emptyMessage="Nenhuma consulta cadastrada"
+                             tableStyle="width:auto;  min-width: 100%" >
+                    <p:column sortBy="#{item.id}">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.dataConsulta}">
+                        <f:facet name="header">
+                            <h:outputText value="Data"/>
+                        </f:facet>
+                        <h:outputText value="#{item.dataConsulta}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Detalhes">
+                        <h:outputText value="#{item.detalhes}"/>
+                    </p:column>
+
+                    <p:column headerText="Excluir">
+                        <p:commandLink  type="button" value="excluir" 
+                                        action="#{consultaControle.excluirConsulta(item)}"
+                                        update="tabelaAnimais" >
+                            <p:confirm header="Excluir consulta" message="Você tem certeza que deseja excluir esta consulta?" 
+                                       icon="ui-icon-alert"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+                        <p:commandButton value="sim" type="button" styleClass="ui-confirmdialog-yes"  />
+                        <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no"  />
+                    </p:outputPanel>
+                </p:confirmDialog>
+            </h:form>
+
+            <h:form id="formNova">
+                <p:dialog id="popupNova" width="50%" modal="true" header="Nova Consulta"
+                          visible="#{consultaControle.mostraPopup}">
+                    <h:panelGrid columns="2" >
+                        <h:outputLabel value="Data:"/>
+                        <p:calendar id="data" pattern="dd/MM/yyyy"
+                                    value="#{consultaControle.consulta.dataConsulta}" 
+                                    required="true" requiredMessage="Data obrigatória"
+                                    showOn="button"
+                                    locale="pt"/>
+                        <h:outputLabel value="Detalhes:"/>
+                        <p:inputTextarea value="#{consultaControle.consulta.detalhes}"/>
+                    </h:panelGrid>
+                    <p/>
+                    <h:panelGrid  columns="2" >
+                        <p:commandButton value="Cancelar" style="width: 150px; margin: 20px" ajax="false"
+                                         immediate="true"
+                                         action="#{consultaControle.fecharPopup()}" /> 
+                        <p:commandButton  value="Salvar" style="width: 150px;" ajax="false"
+                                          action="#{consultaControle.inserirConsulta()}"
+                                          update=":formTabela" /> 
+                    </h:panelGrid>
+
+                </p:dialog>
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
 </html>

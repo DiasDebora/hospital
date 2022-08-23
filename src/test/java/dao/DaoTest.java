@@ -89,10 +89,13 @@ public class DaoTest {
 //    @Test
 //    public void testListarAnimais(){
 //        Dao<Tutor> dao = new Dao(Tutor.class);
-//        Tutor tutor = dao.buscarPorId(1);
+//        Tutor tutor = dao.buscarPorId(3);
 //        List<Animal> lista = tutor.getAnimais();
 //        for(Animal a : lista){
 //            System.out.println(a.getNome());
+//            for (Consulta c : a.getConsultas()){
+//                System.out.println(c.getDetalhes());
+//            }
 //        }
 //        
 //    }
@@ -106,7 +109,7 @@ public class DaoTest {
 //        Dao<Consulta> daoConsulta = new Dao(Consulta.class); 
 //        c.setAnimal(a);
 //        c.setDataConsulta(new java.util.Date());
-//        c.setDetalhes("teste");
+//        c.setDetalhes("teste novo");
 //        daoConsulta.inserir(c);
 //    }
 }
